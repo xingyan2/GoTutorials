@@ -9,6 +9,16 @@ Interfaces:
 	Basics, Composing interfaces, Type Conversion(The empty interface, Type switches),
 	Implementing with values vs. pointers, Best practices
  */
+ /**
+ Best Practices:
+ 	Use many, small interfaces.
+ 		Single method interfaces are some of the most powerful and flexible:
+ 			io.Writer, io.Reader, interface{}
+ 	Don't export interfaces for types that will be consumed
+ 	Do export interfaces for types that will be used by package
+ 	Design functions and methods to receive interfaces whenever possible
+
+  */
 func main() {
 	// Example 1
 	var w Writer = ConsoleWriter{}
@@ -25,6 +35,17 @@ func main() {
 	var wc WriterCloser = NewBufferedWriterCloser()
 	wc.Write([]byte("Hello guys, this is a test!"))
 	wc.Close()
+
+	// Example 4: Type switches
+	var ty interface{} = "str"
+	switch ty.(type) {
+	case int:
+		fmt.Println("This is an int.")
+	case string:
+		fmt.Println("This is a string.")
+	default:
+		fmt.Println("I don't know the type.")
+	}
 }
 
 // Example 1
